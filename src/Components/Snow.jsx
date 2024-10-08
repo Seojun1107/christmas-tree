@@ -1,41 +1,53 @@
 import React from "react";
 import styled, { keyframes } from 'styled-components';
 
+// 눈송이가 아래로 떨어지면서 부드럽게 좌우로 흔들리는 애니메이션
 const fall = keyframes`
   0% {
+    transform: translateX(0) translateY(-100px); /* 시작 위치 */
     opacity: 0;
   }
-  3% {
+  10% {
     opacity: 0.9;
   }
-  90% {
-    opacity: 0.9;
+  50% {
+    transform: translateX(20px) translateY(50vh); /* 부드럽게 좌우로 흔들림 */
+  }
+  75% {
+    transform: translateX(-15px) translateY(75vh); /* 반대 방향으로 부드럽게 흔들림 */
   }
   100% {
-    transform: translateY(100vh); /* 화면 아래로 떨어짐 */
+    transform: translateX(10px) translateY(100vh); /* 화면 아래로 부드럽게 사라짐 */
     opacity: 0;
   }
 `;
 
 const SnowflakeWrapper = styled.p`
-  color: white; /* 눈송이 색상을 흰색으로 변경 */
-  animation: ${fall} 3.5s linear infinite; 
+  color: white;
+  position: absolute; /* 절대 위치로 설정 */
+  top: -100px; /* 시작 위치를 화면 위로 설정 */
+  left: ${({ startX }) => startX}; /* 랜덤 X 위치 적용 */
+  animation: ${fall} 6s linear infinite;
   font-size: ${({ fontSize }) => fontSize};
   animation-delay: ${({ animationDelay }) => animationDelay};
-  user-select: none; /* 드래그 방지 */
+  user-select: none;
 `;
 
 const SnowContainer = styled.div`
-  position: relative;
-  top: -50px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none; /* 마우스 이벤트 차단 (드래그 및 클릭 불가) */
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
 `;
 
 const Snowflake = ({ style }) => {
   return (
-    <SnowflakeWrapper fontSize={style.fontSize} animationDelay={style.animationDelay}>
+    <SnowflakeWrapper
+      fontSize={style.fontSize}
+      animationDelay={style.animationDelay}
+      startX={style.startX} /* 랜덤 X 위치 전달 */
+    >
       {"\u2745"}
     </SnowflakeWrapper>
   );
@@ -44,14 +56,17 @@ const Snowflake = ({ style }) => {
 const makeSnowFlakes = () => {
   let animationDelay = "0s";
   let fontSize = "14px";
+  let startX = "0px"; // X축의 시작 위치를 위한 변수
   const arr = Array.from("Merry Christmas");
 
   return arr.map((el, i) => {
     animationDelay = `${(Math.random() * 16).toFixed(2)}s`;
     fontSize = `${Math.floor(Math.random() * 10) + 10}px`;
+    startX = `${Math.random() * 100}vw`; // 0~100vw 사이의 랜덤 값
     const style = {
       animationDelay,
       fontSize,
+      startX, // 랜덤 X축 값
     };
     return <Snowflake key={i} style={style} />;
   });
