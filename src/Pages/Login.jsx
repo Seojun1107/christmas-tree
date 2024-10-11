@@ -1,18 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // axios 임포트 추가
 
 export default function Login(props) {
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState(""); // 아이디 상태
+    const [password, setPassword] = useState(""); // 비밀번호 상태
+    const [error, setError] = useState(""); // 오류 메시지 상태
+
+    // 로그인 처리 함수
+    /* const handleLogin = async () => {
+        try {
+            const response = await axios.post("http://localhost:3001/login", {
+                id: userId,
+                password: password,
+            });
+            
+
+            // 로그인 성공 시 처리
+            console.log("로그인 성공:", response.data);
+            props.setUser(response.data.user); // 로그인 후 사용자 정보를 상태에 저장
+            navigate("/"); // 홈으로 이동
+        } catch (err) {
+            console.error("로그인 실패:", err);
+            setError("로그인에 실패했습니다."); // 오류 메시지 설정
+        }
+    }; */
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post("http://localhost:3001/login", {
+                id: userId,
+                password: password,
+            }, { withCredentials: true }); // 쿠키 전송 설정
+    
+            // 로그인 성공 시 처리
+            console.log("로그인 성공:", response.data);
+            props.setUser(response.data.user); // 로그인 후 사용자 정보를 상태에 저장
+            navigate(`/${userId}`); // 홈으로 이동
+        } catch (err) {
+            console.error("로그인 실패:", err);
+            setError("로그인에 실패했습니다."); // 오류 메시지 설정
+        }
+    };
     return (
         <Container>
             <LoginForm>
                 <Title>환영합니다!</Title>
                 <Subtitle>로그인을 하기 위해 입력해주세요!</Subtitle>
-                <Input type="text" placeholder="아이디" />
-                <Input type="password" placeholder="비밀번호" />
-                
+                <Input 
+                    type="text" 
+                    placeholder="아이디" 
+                    value={userId} 
+                    onChange={(e) => setUserId(e.target.value)} // 아이디 입력 시 상태 업데이트
+                />
+                <Input 
+                    type="password" 
+                    placeholder="비밀번호" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} // 비밀번호 입력 시 상태 업데이트
+                />
+                {error && <Error>{error}</Error>} {/* 오류 메시지 표시 */}
                 <ButtonGroup>
-                    <Button>로그인</Button>
-                    <Button secondary>회원가입 하기</Button>
+                    <Button onClick={handleLogin}>로그인</Button> {/* 로그인 버튼 클릭 시 로그인 처리 */}
+                    <Button secondary onClick={()=>{navigate("/signup");}}>회원가입 하기</Button>
                 </ButtonGroup>
                 
                 <ForgotPassword>비밀번호를 잊으셨나요?</ForgotPassword>
@@ -21,6 +72,10 @@ export default function Login(props) {
     );
 }
 
+const Error = styled.p`
+    color: red;
+    margin-bottom: 15px;
+`;
 const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -96,29 +151,24 @@ const Input = styled.input`
 
     @media (max-width: 768px) {
         padding: 12px 15px;  /* 태블릿 크기 조정 */
-        font-size: 14px;  /* 태블릿 크기 조정 */
     }
 
     @media (max-width: 480px) {
         padding: 10px 12px;  /* 모바일 크기 조정 */
-        font-size: 12px;  /* 모바일 크기 조정 */
     }
 `;
 
 const ButtonGroup = styled.div`
-    display: flex;
-    justify-content: space-between;
     width: 100%;
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
-
-    @media (max-width: 768px) {
-        flex-direction: column;  /* 버튼을 세로로 나열 */
-    }
 `;
 
 const Button = styled.button`
-    width: 48%;  /* 좌우 배치를 위해 버튼 너비 조정 */
+    width: 100%;
     padding: 15px;
+    margin-bottom: 10px;
     background-color: ${({ secondary }) => (secondary ? "#228b22" : "#d32f2f")};
     color: #ffffff;
     font-size: 16px;
@@ -131,30 +181,15 @@ const Button = styled.button`
     &:hover {
         background-color: ${({ secondary }) => (secondary ? "#006400" : "#b22222")};
     }
-
-    @media (max-width: 768px) {
-        width: 100%;  /* 버튼 너비를 100%로 조정 */
-        margin-bottom: 10px;  /* 버튼 사이 간격 조정 */
-    }
 `;
 
-const ForgotPassword = styled.a`
-    margin-top: 30px;
-    font-size: 14px;
+const ForgotPassword = styled.p`
+    margin-top: 20px;
     color: #f5deb3;
     cursor: pointer;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    text-align: center;
 
     &:hover {
-        color: #ffd700;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 12px;  /* 태블릿 크기 조정 */
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;  /* 모바일 크기 조정 */
+        text-decoration: underline;
     }
 `;

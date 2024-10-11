@@ -1,16 +1,36 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup(props) {
     const [id, setId] = useState("");
     const [idMessage, setIdMessage] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate()
 
-    const handleCheckId = () => {
-        // 예시로 'test' 아이디는 이미 사용 중인 것으로 처리
-        if (id === "test") {
-            setIdMessage("이미 사용 중인 아이디입니다.");
-        } else {
-            setIdMessage("사용 가능한 아이디입니다.");
+    const handleCheckId = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/check-id`, { params: { id } });
+            setIdMessage(response.data.message);
+        } catch (error) {
+            setIdMessage("아이디 확인 오류");
+        }
+    };
+
+    const handleSignup = async () => {
+        try {
+            const response = await axios.post("http://localhost:3001/signup", {
+                id,
+                username,
+                password,
+            });
+            alert(response.data.message);
+            navigate("/login");
+            
+        } catch (error) {
+            alert("회원가입 실패");
         }
     };
 
@@ -19,29 +39,35 @@ export default function Signup(props) {
             <SignupForm>
                 <Title>회원가입</Title>
                 <Subtitle>아래의 정보를 입력해주세요.</Subtitle>
-                <Input type="text" placeholder="닉네임" />
+                <Input
+                    type="text"
+                    placeholder="닉네임"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
                 
                 <InputGroup>
-                    <Input 
-                        type="text" 
-                        placeholder="아이디" 
-                        value={id} 
-                        onChange={(e) => setId(e.target.value)} 
+                    <Input
+                        type="text"
+                        placeholder="아이디"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
                     />
                     <CheckButton onClick={handleCheckId}>중복확인</CheckButton>
                 </InputGroup>
                 {idMessage && <IdMessage>{idMessage}</IdMessage>}
                 
-                <Input type="password" placeholder="비밀번호" />
-                
+                <Input
+                    type="password"
+                    placeholder="비밀번호"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+
                 <PrivacySection>
                     <PrivacyText>
                         개인정보 보호 관련 법에 의거하여 사용자의 정보를 안전하게 처리합니다. 귀하의 정보는
                         서비스 제공과 관련된 목적으로만 사용되며, 사용자의 동의 없이 제3자에게 제공되지 않습니다.
-                        서비스 이용을 위해 다음과 같은 정보를 수집 및 이용합니다: 아이디, 닉네임, 비밀번호.
-                        수집된 정보는 법령에 따라 보관되며, 서비스 탈퇴 시 일정 기간 동안 보관 후 파기됩니다.
-                        개인정보 보호법에 따라 귀하는 정보 삭제를 요청할 수 있으며, 관련 내용은 서비스 약관을
-                        참조하시기 바랍니다.
                     </PrivacyText>
                     <CheckboxWrapper>
                         <Checkbox type="checkbox" />
@@ -50,7 +76,7 @@ export default function Signup(props) {
                 </PrivacySection>
 
                 <ButtonGroup>
-                    <Button>회원가입</Button>
+                    <Button onClick={handleSignup}>회원가입</Button>
                 </ButtonGroup>
             </SignupForm>
         </Container>

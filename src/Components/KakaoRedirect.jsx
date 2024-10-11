@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function KakaoRedirect({ setUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 추출
+    const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
-      fetch(`http://localhost:3001/auth/kakao?code=${code}`) // 백엔드로 인가 코드 전송
+      fetch(`http://localhost:3001/auth/kakao?code=${code}`, {
+        credentials: 'include',  // 쿠키 전송
+      })
         .then(response => response.json())
         .then(data => {
           console.log("로그인 성공:", data);
-          setUser(data.user); // 유저 정보를 부모 컴포넌트로 전달
-          navigate("/"); // 로그인 성공 후 메인 페이지로 이동
+          setUser(data.user);
+          navigate(`/${data.user.UserId}`);  // 메인 페이지로 이동
         })
         .catch(error => {
           console.error("로그인 실패:", error);
@@ -20,5 +23,39 @@ export default function KakaoRedirect({ setUser }) {
     }
   }, [navigate, setUser]);
 
-  return <h1>카카오 로그인 처리 중...</h1>;
+  return (
+    <Container>
+      <LoadingCircle />
+      <Message>로그인 중입니다...</Message>
+    </Container>
+  );
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+`;
+
+const LoadingCircle = styled.div`
+  border: 16px solid #f3f3f3; /* 밝은 회색 */
+  border-top: 16px solid #3498db; /* 파란색 */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite; /* 회전 애니메이션 */
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const Message = styled.h1`
+  margin-top: 20px;
+  font-size: 24px;
+  color: white; /* 어두운 회색 */
+  font-weight: bold;
+`;

@@ -1,39 +1,79 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-export default function Main({ user }) {
+export default function Main({ user, setUser }) {
   const navigate = useNavigate();
 
-  const Rest_api_key = 'f2e8bb4ca54082e203b7ecbcd19beff8'; //REST API KEY
-  const redirect_uri = 'http://localhost:3000/auth'; //Redirect URI
+  const Rest_api_key = 'f2e8bb4ca54082e203b7ecbcd19beff8';
+  const redirect_uri = 'http://localhost:3000/auth';
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/user', {
+          method: 'GET',
+          credentials: 'include',  // 쿠키를 포함
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user); // 유저 정보를 상태에 저장
+          
+          // 유저 정보가 있으면 /userId로 리다이렉트
+          if (data.user) {
+            navigate(`/${data.user.UserId}`);
+          }
+        } else if (response.status === 401) {
+          console.log("자동 로그인 실패: Unauthorized");
+        } else {
+          console.log("자동 로그인 실패: ", response.statusText);
+        }
+      } catch (error) {
+        console.error("유저 정보 가져오기 실패:", error);
+      }
+    };
+  
+    fetchUser(); // 컴포넌트 마운트 시 유저 정보 가져오기
+  }, [setUser, navigate]);
 
   const handleLogin = () => {
     window.location.href = kakaoURL;
   };
 
-  const onClickLogin = () => {
-    navigate("/login");
+  // eslint-disable-next-line
+  const handleLogout = () => {
+    fetch('http://localhost:3001/logout', {
+      method: 'POST',
+      credentials: 'include',  // 쿠키를 포함
+    })
+      .then(response => response.json())
+      .then(() => {
+        setUser(null);
+        navigate("/");
+      })
+      .catch(error => console.error("로그아웃 실패:", error));
   };
 
   return (
     <Container>
       <LoginForm>
         <Title>환영합니다!</Title>
-        {user ? (
-          <WelcomeMessage>{user.kakao_account.profile.nickname}님, 어서 오세요!</WelcomeMessage>
-        ) : (
+          {/* <>
+            <WelcomeMessage>{user.username}님의 트리</WelcomeMessage>
+            <Button onClick={handleLogout}>로그아웃</Button>
+          </> */}
           <ButtonGroup>
             <Button onClick={handleLogin}>카카오로 로그인하기</Button>
-            <Button onClick={onClickLogin} secondary>아이디로 로그인하기</Button>
+            <Button onClick={() => navigate("/login")} secondary>아이디로 로그인하기</Button>
           </ButtonGroup>
-        )}
       </LoginForm>
     </Container>
   );
 }
 
+// 스타일 컴포넌트는 기존과 동일
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -60,7 +100,7 @@ const Title = styled.h1`
   margin-bottom: 20px;
   color: #fffacd;
 `;
-
+// eslint-disable-next-line
 const WelcomeMessage = styled.h2`
   font-size: 24px;
   color: #fff;
