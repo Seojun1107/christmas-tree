@@ -1,50 +1,94 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   const navigate = useNavigate();
+  const panelRef = useRef(null); // 설정 패널의 DOM 참조 생성
 
+  // 컴포넌트가 마운트될 때 유저 정보를 확인하여 자동 로그인을 처리
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/user", {
+          method: "GET",
+          credentials: "include", // 쿠키 포함
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
+            setUser(data.user); // 유저 정보가 있으면 상태에 저장
+          }
+        } else {
+          console.log("자동 로그인 실패:", response.statusText);
+        }
+      } catch (error) {
+        console.error("유저 정보 확인 오류:", error);
+      }
+    };
+
+    checkUserLoggedIn();
+  }, [setUser]);
+
+  // 로그아웃 처리
   const handleLogout = () => {
-    fetch('http://localhost:3001/logout', {
-      method: 'POST',
-      credentials: 'include',  // 쿠키를 포함
+    fetch("http://localhost:3001/logout", {
+      method: "POST",
+      credentials: "include", // 쿠키 포함
     })
       .then(response => response.json())
       .then(() => {
         setUser(null);
+        setIsOpen(false); // 로그아웃 후 설정 패널 닫기
         navigate("/");
       })
       .catch(error => console.error("로그아웃 실패:", error));
   };
 
   const toggleSettings = () => {
-    setIsOpen(!isOpen); // 상태를 변경하여 열고 닫기 토글
+    setIsOpen(!isOpen); // 설정 패널 토글
   };
 
   const handleLoginRedirect = () => {
-    const currentPath = window.location.pathname; // 현재 페이지의 경로를 저장
-    navigate("/", { state: { from: currentPath } }); // 로그인 후 리다이렉트 할 경로 저장
+    setIsOpen(false); // 로그인 버튼 클릭 시 패널 닫기
+    navigate("/login");
   };
+
+  // 패널 외부를 클릭하면 설정 패널 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (panelRef.current && !panelRef.current.contains(event.target)) {
+        setIsOpen(false); // 패널 외부 클릭 시 닫기
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, setIsOpen]);
 
   return (
     <>
-      <SettingsPanel isOpen={isOpen}>
-        <CloseButton onClick={toggleSettings}>X</CloseButton> {/* 닫기 버튼 */}
+      <SettingsPanel isOpen={isOpen} ref={panelRef}>
+        <CloseButton onClick={toggleSettings}>X</CloseButton>
         <Content>
           <h2>Settings</h2>
           <p>여기서 설정을 변경할 수 있습니다.</p>
-
-          {/* 개인정보 처리방침 섹션 */}
           <Section>
             <h3>개인정보 처리방침</h3>
             <p>
               저희 서비스는 사용자의 개인정보를 소중히 다룹니다. 관련 법률을 준수하며,
-              안전한 데이터를 처리합니다.
+              안전하게 데이터를 처리합니다.
             </p>
           </Section>
 
-          {/* 로그인 상태에 따른 버튼 표시 */}
           {currentUser ? (
             <Button onClick={handleLogout}>로그아웃</Button>
           ) : (
@@ -56,7 +100,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   );
 }
 
-// 스타일 컴포넌트
+// 스타일 컴포넌트 설정은 기존과 동일
 const SettingsPanel = styled.div`
   position: fixed;
   top: 0;

@@ -13,11 +13,11 @@ import Settings from "./Pages/Settings";
 
 
 function App(props) {
-    const [user, setUser] = useState(null); // 유저 상태 관리
+    const [user, setUser] = useState();
     const [isOpen, setIsOpen] = useState(false);  // 메뉴가 열려 있는지 상태로 관리
     
     const toggleSettings = () => {
-        setIsOpen(!isOpen);  // 상태를 변경하여 열고 닫기 토글
+        setIsOpen(!isOpen); 
     };
     return (
         <BrowserRouter>

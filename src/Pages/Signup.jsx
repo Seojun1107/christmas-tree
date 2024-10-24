@@ -8,7 +8,9 @@ export default function Signup(props) {
     const [idMessage, setIdMessage] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate()
+    const [passwordConfirm, setPasswordConfirm] = useState("");  // 비밀번호 확인 상태 추가
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState("");  // 비밀번호 불일치 에러 메시지 상태
+    const navigate = useNavigate();
 
     const handleCheckId = async () => {
         try {
@@ -20,6 +22,12 @@ export default function Signup(props) {
     };
 
     const handleSignup = async () => {
+        // 비밀번호와 비밀번호 확인이 일치하지 않으면 회원가입을 중단
+        if (password !== passwordConfirm) {
+            setPasswordErrorMessage("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
         try {
             const response = await axios.post("http://localhost:3001/signup", {
                 id,
@@ -28,7 +36,6 @@ export default function Signup(props) {
             });
             alert(response.data.message);
             navigate("/login");
-            
         } catch (error) {
             alert("회원가입 실패");
         }
@@ -56,13 +63,26 @@ export default function Signup(props) {
                     <CheckButton onClick={handleCheckId}>중복확인</CheckButton>
                 </InputGroup>
                 {idMessage && <IdMessage>{idMessage}</IdMessage>}
-                
+
                 <Input
                     type="password"
                     placeholder="비밀번호"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        setPasswordErrorMessage("");  // 비밀번호가 변경되면 에러 메시지 초기화
+                    }}
                 />
+                <Input
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    value={passwordConfirm}
+                    onChange={(e) => {
+                        setPasswordConfirm(e.target.value);
+                        setPasswordErrorMessage("");  // 비밀번호 확인 변경 시 에러 메시지 초기화
+                    }}
+                />
+                {passwordErrorMessage && <PasswordError>{passwordErrorMessage}</PasswordError>}  {/* 비밀번호 불일치 시 메시지 */}
 
                 <PrivacySection>
                     <PrivacyText>
@@ -83,9 +103,10 @@ export default function Signup(props) {
     );
 }
 
+// 스타일 컴포넌트
 const Container = styled.div`
     display: flex;
-    flex-direction: column; /* 추가 */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -180,7 +201,6 @@ const InputGroup = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-
 `;
 
 const CheckButton = styled.button`
@@ -267,4 +287,10 @@ const Button = styled.button`
     @media (max-width: 768px) {
         width: 100%;
     }
+`;
+
+const PasswordError = styled.p`
+    font-size: 14px;
+    color: #d32f2f;
+    margin-bottom: 15px;
 `;

@@ -1,9 +1,14 @@
+@font-face {
+  font-family: "BMJUA";
+  src: url("./font/BMJUA_ttf.ttf") format("truetype");
+}
+* {
+  font-family: "BMJUA";
+}
+
 body, html, #root {
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,9 +24,23 @@ code {
   right: 15px;
   top: 15px;
   cursor: pointer;
-  
 }
 
 .fa-bars:hover {
   color: gainsboro;
+}
+
+.fa-share-from-square {
+  display: flex;
+  color: #B8001F;
+  cursor: pointer;
+
+}
+
+.fa-eye-slash, .fa-eye {
+  display: flex;
+}
+
+input[type=password] {
+  font-family: Arial, Helvetica, sans-serif;
 }

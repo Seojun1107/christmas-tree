@@ -17,12 +17,23 @@ mongoose.connect('mongodb://localhost:27017/christmas-tree', {
   .catch(err => console.log(err));
 
 // 유저 스키마 정의
+// 편지 스키마 정의
+const letterSchema = new mongoose.Schema({
+  senderId: { type: String, required: true },  // 편지 보낸 유저의 아이디
+  sentAt: { type: Date, default: Date.now },  // 편지 보낸 시간 (기본값: 현재 시간)
+  nickname: { type: String, required: true },  // 유저의 닉네임
+  ip: { type: String, required: true },  // 유저의 IP 주소
+});
+
+// 유저 스키마 정의에 편지 객체 추가
 const userSchema = new mongoose.Schema({
   UserId: { type: String, required: true },
   username: String,
   password: { type: String },
   kakaoAccount: Object,  // 카카오 유저 정보
+  letters: [letterSchema],  // 유저가 보낸 편지들
 });
+
 
 const User = mongoose.model("User", userSchema);
 
