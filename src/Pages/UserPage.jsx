@@ -120,6 +120,7 @@ const CopyMessage = styled.div`
   color: white;
   border-radius: 10px;
   animation: ${slideDown} 3s ease forwards;
+  z-index: 9999999;
 `;
 
 const Container = styled.div`
