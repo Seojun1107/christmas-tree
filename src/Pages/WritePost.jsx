@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 
-export default function WritePost({ currentUser }) { // currentUser를 props로 받아옴
+export default function WritePost({ currentUser, recipient, receiveUser}) { // recipient prop 추가
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
-
   useEffect(() => {
     if (!currentUser) {
       setMessage("로그인이 필요합니다.");
@@ -22,10 +21,11 @@ export default function WritePost({ currentUser }) { // currentUser를 props로 
 
     try {
       const response = await axios.post('http://localhost:3001/letters', {
-        nickname: currentUser.username,  // 현재 로그인한 유저의 닉네임 사용
+        nickname: currentUser.username,
         content,
         timestamp: new Date(),
-        ip: window.location.hostname
+        recipient, // 수신자 정보 사용
+        receiveUser
       });
       if (response.status === 200) {
         setSuccessMessage(true);
@@ -46,7 +46,7 @@ export default function WritePost({ currentUser }) { // currentUser를 props로 
         <Title>편지 쓰기</Title>
         {currentUser ? (
           <>
-            <Nickname>닉네임: {currentUser.username}</Nickname> {/* 닉네임 표시 */}
+            <Nickname>닉네임: {currentUser.username}</Nickname>
             <Textarea 
               value={content} 
               onChange={(e) => setContent(e.target.value)} 
@@ -63,6 +63,7 @@ export default function WritePost({ currentUser }) { // currentUser를 props로 
     </Container>
   );
 }
+// styled-components 및 기타 코드는 이전 코드와 동일하게 유지합니다.
 
 // 애니메이션 정의
 const fadeIn = keyframes`

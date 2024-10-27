@@ -16,12 +16,12 @@ mongoose.connect('mongodb://localhost:27017/christmas-tree', {
 }).then(() => console.log('MongoDB 연결 성공'))
   .catch(err => console.log(err));
 
-// 유저 스키마 정의
 // 편지 스키마 정의
 const letterSchema = new mongoose.Schema({
+  sentAt: { type: Date, default: Date.now, index: true},  // 편지 보낸 시간 (기본값: 현재 시간)
   senderId: { type: String, required: true },  // 편지 보낸 유저의 아이디
-  sentAt: { type: Date, default: Date.now },  // 편지 보낸 시간 (기본값: 현재 시간)
   nickname: { type: String, required: true },  // 유저의 닉네임
+  postValue: { type: String, required: true },  // 편지 내용
   ip: { type: String, required: true },  // 유저의 IP 주소
 });
 
@@ -219,6 +219,42 @@ app.get('/user/:id', async (req, res) => {
     res.json(user); // 유저 정보를 JSON 형태로 응답
   } catch (error) {
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+// POST /letters 엔드포인트: 새 편지 작성 및 저장
+app.post("/letters", async (req, res) => {
+  const { nickname, content, timestamp,receiveUser } = req.body;
+
+  try {
+    // 요청 IP 주소 가져오기
+    const ipAddress = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    // 해당 닉네임의 유저 찾기
+    const user = await User.findOne({ username: receiveUser });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // 새 편지 객체 생성
+    const newLetter = {
+      sentAt: timestamp,
+      senderId: user.UserId,
+      nickname,
+      postValue: content,
+      ip: ipAddress,
+    };
+
+    // 유저의 letters 필드에 새 편지 추가
+    user.letters.push(newLetter);
+    await user.save();
+
+    res.status(200).json({ message: "편지가 성공적으로 저장되었습니다!" });
+  } catch (error) {
+    console.error("편지 저장 오류:", error);
+    res.status(500).json({ message: "편지 저장에 실패했습니다.", error });
   }
 });
 // 로그아웃 처리

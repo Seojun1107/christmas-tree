@@ -49,18 +49,19 @@ export default function UserPage({ currentUser }) {
       {userData ? (
         <Content style={isOwner ? { height: "750px" } : { height: "550px" }}>
           <BorderContent>
-            <Header>
+            <Header style={isOwner ? { display: "flex" } : {display: "block"}}>
               <Title>{userData.username}님의 페이지</Title>
               {isOwner && <FontAwesomeIcon icon={faShareFromSquare} size='2xl' onClick={handleShareClick} />}
             </Header>
             {isOwner ? (
               <Contents>
-                <Letter />
-                <Letter />
-                <Letter />
-                <Letter />
-                <Letter />
-                <Letter />
+                {userData.letters.map((letter, index) => (
+                  <Letter
+                    key={index}
+                    letterData={letter.postValue}
+                    nickName={letter.nickname}
+                  />
+                ))}
               </Contents>
             ) : (
               <Message>이 페이지는 {userData.username}님의 트리입니다.</Message>
@@ -71,7 +72,7 @@ export default function UserPage({ currentUser }) {
         <LoadingMessage>로딩 중...</LoadingMessage>
       )}
       {!isOwner && (
-        <WritePostButton onClick={togglePostModal}>편지 작성하기</WritePostButton>
+        <WritePostButton onClick={togglePostModal} >편지 작성하기</WritePostButton>
       )}
 
       {postVisible && (
@@ -79,13 +80,14 @@ export default function UserPage({ currentUser }) {
           <Overlay onClick={togglePostModal} />
           <PostModal>
             <CloseButton onClick={togglePostModal}>닫기</CloseButton>
-            <WritePostView currentUser={currentUser} />
+            <WritePostView currentUser={currentUser} receiveUser={userData.username}/>
           </PostModal>
         </>
       )}
     </Container>
   );
 }
+
 
 const slideDown = keyframes`
   0% {
@@ -141,10 +143,11 @@ const Content = styled.div`
   flex-direction: column;
   width: 700px;
   text-align: center;
+  align-items: center;
   background: #AB886D;
   border-radius: 25px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -156,6 +159,9 @@ const Content = styled.div`
     border-radius: 15px;
     padding: 10px;
   }
+    backdrop-filter: blur(4px);
+
+    box-shadow: 35px 35px 68px 0px rgba(0, 0, 0, 0.5), inset -9px -9px 16px 0px rgba(0, 0, 0, 0.3), inset 0px 11px 28px 0px rgba(255, 255, 255, 0.3);
 `;
 
 const BorderContent = styled.div`
@@ -174,7 +180,6 @@ const BorderContent = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -182,9 +187,11 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 35px;
-  color: #347928;
-
+  font-size: 30px;
+  text-align: center;
+  
+  align-items: center;
+  color: rgba(73,54,40,0.9);
   @media (max-width: 768px) {
     font-size: 28px;
   }
@@ -242,6 +249,7 @@ const WritePostButton = styled.div`
     font-size: 20px;
     padding: 10px;
   }
+    box-shadow: 35px 35px 68px 0px rgba(0, 0, 0, 0.5), inset -9px -9px 16px 0px rgba(0, 0, 0, 0.3), inset 0px 11px 28px 0px rgba(255, 255, 255, 0.3);
 `;
 
 const Overlay = styled.div`
