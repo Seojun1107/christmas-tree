@@ -55,13 +55,20 @@ export default function UserPage({ currentUser }) {
             </Header>
             {isOwner ? (
               <Contents>
-                {userData.letters.map((letter, index) => (
-                  <Letter
-                    key={index}
-                    letterData={letter.postValue}
-                    nickName={letter.nickname}
-                  />
-                ))}
+                {userData.letters.length > 0 ? (
+                  userData.letters.map((letter, index) => (
+                    <Letter
+                      key={index}
+                      letterData={letter.postValue}
+                      nickName={letter.nickname}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <Message>편지를 못 받았어요..</Message>
+                    <Message>페이지를 공유하고 싶으면 우측 상단에 있는 공유 아이콘을 클릭해주세요!</Message>
+                  </>
+                )}
               </Contents>
             ) : (
               <Message>이 페이지는 {userData.username}님의 트리입니다.</Message>
