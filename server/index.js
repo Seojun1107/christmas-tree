@@ -1,10 +1,11 @@
+require('dotenv').config(); // dotenv 모듈로 환경 변수 로드
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt'); // bcrypt 모듈 추가
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(cors({ origin: true, credentials: true })); // CORS 설정
@@ -37,10 +38,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-const KAKAO_CLIENT_ID = "f2e8bb4ca54082e203b7ecbcd19beff8";
-const KAKAO_CLIENT_SECRET = "5JmokpIKH8fmixwHEtwwo7XALhj3dAvc"; 
-const KAKAO_REDIRECT_URI = "http://localhost:3000/auth"; 
-const JWT_SECRET = "Ka120313!";  // JWT 시크릿키
+const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
+const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // JWT 토큰 생성
 const generateToken = (user) => {
