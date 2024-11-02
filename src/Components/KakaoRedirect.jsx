@@ -8,7 +8,7 @@ export default function KakaoRedirect({ setUser }) {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
-      fetch(`http://localhost:3001/auth/kakao?code=${code}`, {
+      fetch(`http://tree.seojun.xyz:3001/auth/kakao?code=${code}`, {
         credentials: 'include',  // 쿠키 전송
       })
         .then(response => response.json())

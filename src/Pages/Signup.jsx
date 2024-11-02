@@ -14,7 +14,7 @@ export default function Signup(props) {
 
     const handleCheckId = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/check-id`, { params: { id } });
+            const response = await axios.get(`http://tree.seojun.xyz:3001/check-id`, { params: { id } });
             setIdMessage(response.data.message);
         } catch (error) {
             setIdMessage("아이디 확인 오류");
@@ -29,7 +29,7 @@ export default function Signup(props) {
         }
 
         try {
-            const response = await axios.post("http://localhost:3001/signup", {
+            const response = await axios.post("http://tree.seojun.xyz:3001/signup", {
                 id,
                 username,
                 password,

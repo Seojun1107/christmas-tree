@@ -29,7 +29,7 @@ export default function Login(props) {
     }; */
     const handleLogin = async () => {
         try {
-            const response = await axios.post("http://localhost:3001/login", {
+            const response = await axios.post("http://tree.seojun.xyz:3001/login", {
                 id: userId,
                 password: password,
             }, { withCredentials: true }); // 쿠키 전송 설정

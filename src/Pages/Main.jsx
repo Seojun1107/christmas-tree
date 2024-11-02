@@ -6,13 +6,13 @@ export default function Main({ user, setUser }) {
   const navigate = useNavigate();
 
   const Rest_api_key = 'f2e8bb4ca54082e203b7ecbcd19beff8';
-  const redirect_uri = 'http://localhost:3000/auth';
+  const redirect_uri = 'http://tree.seojun.xyz/auth';
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:3001/user', {
+        const response = await fetch('http://tree.seojun.xyz:3001/user', {
           method: 'GET',
           credentials: 'include',  // 쿠키를 포함
         });
@@ -44,7 +44,7 @@ export default function Main({ user, setUser }) {
 
   // eslint-disable-next-line
   const handleLogout = () => {
-    fetch('http://localhost:3001/logout', {
+    fetch('http://tree.seojun.xyz:3001/logout', {
       method: 'POST',
       credentials: 'include',  // 쿠키를 포함
     })
