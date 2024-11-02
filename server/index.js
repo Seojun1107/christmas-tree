@@ -52,7 +52,7 @@ const generateToken = (user) => {
 };
 
 // 카카오 로그인 처리
-app.get("/auth/kakao", async (req, res) => {
+app.get("/api/auth/kakao", async (req, res) => {
   const { code } = req.query;
 
   try {
@@ -110,7 +110,7 @@ app.get("/auth/kakao", async (req, res) => {
 });
 // 유저 정보 반환 엔드포인트
 // 유저 정보 반환 엔드포인트
-app.get("/user", (req, res) => {
+app.get("/api/user", (req, res) => {
   const token = req.cookies.auth_token; // 쿠키에서 JWT 토큰 가져오기
 
   if (!token) {
@@ -137,7 +137,7 @@ app.get("/user", (req, res) => {
 
 
 // 아이디 중복 확인 엔드포인트
-app.get("/check-id", async (req, res) => {
+app.get("/api/check-id", async (req, res) => {
   const { id } = req.query;
 
   try {
@@ -155,7 +155,7 @@ app.get("/check-id", async (req, res) => {
 });
 
 // 일반 회원가입 처리
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const { id, username, password } = req.body;
 
   try {
@@ -187,7 +187,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // 로그인 처리
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { id, password } = req.body;
 
   try {
@@ -228,7 +228,7 @@ app.get('/user/:id', async (req, res) => {
 
 
 // POST /letters 엔드포인트: 새 편지 작성 및 저장
-app.post("/letters", async (req, res) => {
+app.post("/api/letters", async (req, res) => {
   const { nickname, content, timestamp,receiveUser } = req.body;
 
   try {
@@ -262,7 +262,7 @@ app.post("/letters", async (req, res) => {
   }
 });
 // 로그아웃 처리
-app.post("/logout", (req, res) => {
+app.post("/api/logout", (req, res) => {
   res.clearCookie('auth_token');
   res.json({ message: "로그아웃 성공" });
 });
