@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 export default function Main({ user, setUser }) {
   const navigate = useNavigate();
 
-  const Rest_api_key = 'f2e8bb4ca54082e203b7ecbcd19beff8';
-  const redirect_uri = 'http://tree.seojun.xyz/auth';
+  const Rest_api_key = process.env.REACT_APP_REST_API_KEY;
+  const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   useEffect(() => {
