@@ -20,7 +20,7 @@ export default function WritePost({ currentUser, recipient, receiveUser}) { // r
     }
 
     try {
-      const response = await axios.post('https://tree.seojun.xyz:3001/api/letters', {
+      const response = await axios.post('https://tree.seojun.xyz/api/letters', {
         nickname: currentUser.username,
         content,
         timestamp: new Date(),

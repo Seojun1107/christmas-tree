@@ -10,7 +10,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       try {
-        const response = await fetch("https://tree.seojun.xyz:3001/api/user", {
+        const response = await fetch("https://tree.seojun.xyz/api/user", {
           method: "GET",
           credentials: "include", // 쿠키 포함
         });
@@ -33,7 +33,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
   // 로그아웃 처리
   const handleLogout = () => {
-    fetch("https://tree.seojun.xyz:3001/api/logout", {
+    fetch("https://tree.seojun.xyz/api/logout", {
       method: "POST",
       credentials: "include", // 쿠키 포함
     })

@@ -18,7 +18,7 @@ export default function UserPage({ currentUser }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://tree.seojun.xyz:3001/api/user/${userId}`);
+        const response = await axios.get(`https://tree.seojun.xyz/api/user/${userId}`);
         setUserData(response.data);
         console.log("Fetched userId:", userId);
       } catch (err) {

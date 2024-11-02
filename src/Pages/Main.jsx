@@ -12,7 +12,7 @@ export default function Main({ user, setUser }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('https://tree.seojun.xyz:3001/api/user', {
+        const response = await fetch('https://tree.seojun.xyz/api/user', {
           method: 'GET',
           credentials: 'include',  // 쿠키를 포함
         });
@@ -44,7 +44,7 @@ export default function Main({ user, setUser }) {
 
   // eslint-disable-next-line
   const handleLogout = () => {
-    fetch('https://tree.seojun.xyz:3001/api/logout', {
+    fetch('https://tree.seojun.xyz/api/logout', {
       method: 'POST',
       credentials: 'include',  // 쿠키를 포함
     })
