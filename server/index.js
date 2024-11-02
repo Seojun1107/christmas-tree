@@ -8,7 +8,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const app = express();
-app.use(cors({ origin: true, credentials: true })); // CORS 설정
+app.use(cors({
+  origin: 'https://tree.seojun.xyz',  // 프론트엔드 도메인
+  credentials: true,  // 쿠키를 포함하기 위한 설정
+}));
 app.use(cookieParser()); // 쿠키 파서 추가
 app.use(express.json()); // JSON 요청 본문을 파싱하는 미들웨어 추가
 
