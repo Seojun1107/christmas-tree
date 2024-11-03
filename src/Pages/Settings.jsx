@@ -110,7 +110,7 @@ const SettingsPanel = styled.div`
   max-width: 500px;
   background-color: #323742;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  z-index: 99999999;
   transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
   transition: transform 0.3s ease-in-out;
 `;
@@ -125,6 +125,7 @@ const CloseButton = styled.button`
   background: none;
   border: none;
   color: white;
+  z-index: 99999999;
 `;
 
 const Content = styled.div`

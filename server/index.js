@@ -213,7 +213,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 // 백엔드 라우트 예시 (Express.js 기반)
-app.get('/user/:id', async (req, res) => {
+app.get('/api/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findOne({ UserId: userId }); // MongoDB에서 해당 유저아이디로 조회

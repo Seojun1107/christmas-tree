@@ -39,6 +39,7 @@ const SnowContainer = styled.div`
   height: 100vh;
   overflow: hidden;
   pointer-events: none;
+  z-index: 9999999999;
 `;
 
 const Snowflake = ({ style }) => {

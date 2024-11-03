@@ -80,6 +80,7 @@ const Container = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
+  
 `;
 
 const LoginForm = styled.div`

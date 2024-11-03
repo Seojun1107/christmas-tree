@@ -47,7 +47,7 @@ export default function UserPage({ currentUser }) {
     <Container>
       {showCopyMessage && <CopyMessage>링크 복사 되었어요!</CopyMessage>}
       {userData ? (
-        <Content style={isOwner ? { height: "750px" } : { height: "550px" }}>
+        <Content>
           <BorderContent>
             <Header style={isOwner ? { display: "flex" } : {display: "block"}}>
               <Title>{userData.username}님의 페이지</Title>
@@ -141,7 +141,6 @@ const Container = styled.div`
   background-size: cover;
   
   @media (max-width: 768px) {
-  
     padding: 0 20px;
   }
 `;
@@ -155,21 +154,20 @@ const Content = styled.div`
   background: #AB886D;
   border-radius: 25px;
   padding: 20px;
-  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  backdrop-filter: blur(4px);
+  box-shadow: 35px 35px 68px 0px rgba(0, 0, 0, 0.5), inset -9px -9px 16px 0px rgba(0, 0, 0, 0.3), inset 0px 11px 28px 0px rgba(255, 255, 255, 0.3);
+  height: ${(isOwner) => (isOwner ? '750px' : '550px')};
 
   @media (max-width: 768px) {
     width: 90%;
   }
-
   @media (max-width: 480px) {
     width: 100%;
     border-radius: 15px;
     padding: 10px;
+    height: ${(isOwner) => (isOwner ? '680px' : '550px')};
   }
-    backdrop-filter: blur(4px);
-
-    box-shadow: 35px 35px 68px 0px rgba(0, 0, 0, 0.5), inset -9px -9px 16px 0px rgba(0, 0, 0, 0.3), inset 0px 11px 28px 0px rgba(255, 255, 255, 0.3);
 `;
 
 const BorderContent = styled.div`
