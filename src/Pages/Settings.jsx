@@ -1,25 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Switch from "../Components/Switch";
+import BackgroundMusic from "../Components/BackgroundMusic";
 
 export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   const navigate = useNavigate();
-  const panelRef = useRef(null); // 설정 패널의 DOM 참조 생성
+  const panelRef = useRef(null);
+  const [isMusicOn, setIsMusicOn] = useState(false); // 음악 상태 추가
 
-  // 컴포넌트가 마운트될 때 유저 정보를 확인하여 자동 로그인을 처리
+  // 유저 정보 확인 및 자동 로그인 처리
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       try {
         const response = await fetch("https://tree.seojun.xyz/api/user", {
           method: "GET",
-          credentials: "include", // 쿠키 포함
+          credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
-          if (data.user) {
-            setUser(data.user); // 유저 정보가 있으면 상태에 저장
-          }
+          if (data.user) setUser(data.user);
         } else {
           console.log("자동 로그인 실패:", response.statusText);
         }
@@ -35,31 +36,30 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   const handleLogout = () => {
     fetch("https://tree.seojun.xyz/api/logout", {
       method: "POST",
-      credentials: "include", // 쿠키 포함
+      credentials: "include",
     })
-      .then(response => response.json())
       .then(() => {
         setUser(null);
-        setIsOpen(false); // 로그아웃 후 설정 패널 닫기
+        setIsOpen(false);
         navigate("/");
       })
-      .catch(error => console.error("로그아웃 실패:", error));
+      .catch((error) => console.error("로그아웃 실패:", error));
   };
 
   const toggleSettings = () => {
-    setIsOpen(!isOpen); // 설정 패널 토글
+    setIsOpen(!isOpen);
   };
 
   const handleLoginRedirect = () => {
-    setIsOpen(false); // 로그인 버튼 클릭 시 패널 닫기
+    setIsOpen(false);
     navigate("/login");
   };
 
-  // 패널 외부를 클릭하면 설정 패널 닫기
+  // 패널 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (panelRef.current && !panelRef.current.contains(event.target)) {
-        setIsOpen(false); // 패널 외부 클릭 시 닫기
+        setIsOpen(false);
       }
     };
 
@@ -76,17 +76,16 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
   return (
     <>
+      {isMusicOn && <BackgroundMusic />} {/* 음악 상태에 따라 컴포넌트 렌더링 */}
       <SettingsPanel isOpen={isOpen} ref={panelRef}>
         <CloseButton onClick={toggleSettings}>X</CloseButton>
         <Content>
           <h2>Settings</h2>
           <p>여기서 설정을 변경할 수 있습니다.</p>
+
           <Section>
-            <h3>개인정보 처리방침</h3>
-            <p>
-              저희 서비스는 사용자의 개인정보를 소중히 다룹니다. 관련 법률을 준수하며,
-              안전하게 데이터를 처리합니다.
-            </p>
+            <h3>배경음악</h3>
+            <Switch onChange={() => setIsMusicOn(!isMusicOn)} /> {/* 스위치 추가 */}
           </Section>
 
           {currentUser ? (
@@ -102,17 +101,29 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
 // 스타일 컴포넌트 설정은 기존과 동일
 const SettingsPanel = styled.div`
+  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   position: fixed;
-  top: 0;
-  right: 0;
   height: 100%;
-  width: 40%;
+  width: 100%;
   max-width: 500px;
   background-color: #323742;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   z-index: 99999999;
-  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
-  transition: transform 0.3s ease-in-out;
+
+  // 데스크톱 - 오른쪽에서 왼쪽으로 슬라이드
+  @media (min-width: 768px) {
+    top: 0;
+    right: 0;
+    transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
+    transition: transform 0.3s ease-in-out;
+  }
+
+  // 모바일 - 아래에서 위로 슬라이드
+  @media (max-width: 767px) {
+    bottom: 0;
+    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(100%)')};
+    transition: transform 0.3s ease-in-out;
+  }
 `;
 
 const CloseButton = styled.button`

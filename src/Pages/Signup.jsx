@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Signup(props) {
     const [id, setId] = useState("");
+    const [email, setEmail] = useState("");
     const [idMessage, setIdMessage] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -31,6 +32,7 @@ export default function Signup(props) {
         try {
             const response = await axios.post("https://tree.seojun.xyz/api/signup", {
                 id,
+                email,
                 username,
                 password,
             });
@@ -52,7 +54,12 @@ export default function Signup(props) {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                
+                <Input
+                    type="text"
+                    placeholder="이메일"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
                 <InputGroup>
                     <Input
                         type="text"

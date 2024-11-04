@@ -1,48 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // axios 임포트 추가
+import axios from "axios";
 
 export default function Login(props) {
     const navigate = useNavigate();
-    const [userId, setUserId] = useState(""); // 아이디 상태
-    const [password, setPassword] = useState(""); // 비밀번호 상태
-    const [error, setError] = useState(""); // 오류 메시지 상태
+    const [userId, setUserId] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    // 로그인 처리 함수
-    /* const handleLogin = async () => {
-        try {
-            const response = await axios.post("http://localhost:3001/login", {
-                id: userId,
-                password: password,
-            });
-            
-
-            // 로그인 성공 시 처리
-            console.log("로그인 성공:", response.data);
-            props.setUser(response.data.user); // 로그인 후 사용자 정보를 상태에 저장
-            navigate("/"); // 홈으로 이동
-        } catch (err) {
-            console.error("로그인 실패:", err);
-            setError("로그인에 실패했습니다."); // 오류 메시지 설정
-        }
-    }; */
     const handleLogin = async () => {
         try {
             const response = await axios.post("https://tree.seojun.xyz/api/login", {
                 id: userId,
                 password: password,
-            }, { withCredentials: true }); // 쿠키 전송 설정
+            }, { withCredentials: true });
     
-            // 로그인 성공 시 처리
             console.log("로그인 성공:", response.data);
-            props.setUser(response.data.user); // 로그인 후 사용자 정보를 상태에 저장
-            navigate(`/${userId}`); // 홈으로 이동
+            props.setUser(response.data.user);
+            navigate(`/${userId}`);
         } catch (err) {
             console.error("로그인 실패:", err);
-            setError("로그인에 실패했습니다."); // 오류 메시지 설정
+            setError("로그인에 실패했습니다.");
         }
     };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleLogin();
+        }
+    };
+
     return (
         <Container>
             <LoginForm>
@@ -52,17 +40,18 @@ export default function Login(props) {
                     type="text" 
                     placeholder="아이디" 
                     value={userId} 
-                    onChange={(e) => setUserId(e.target.value)} // 아이디 입력 시 상태 업데이트
+                    onChange={(e) => setUserId(e.target.value)}
                 />
                 <Input 
                     type="password" 
                     placeholder="비밀번호" 
                     value={password} 
-                    onChange={(e) => setPassword(e.target.value)} // 비밀번호 입력 시 상태 업데이트
+                    onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeyDown} // Enter 키 누르면 handleLogin 실행
                 />
-                {error && <Error>{error}</Error>} {/* 오류 메시지 표시 */}
+                {error && <Error>{error}</Error>}
                 <ButtonGroup>
-                    <Button onClick={handleLogin}>로그인</Button> {/* 로그인 버튼 클릭 시 로그인 처리 */}
+                    <Button onClick={handleLogin}>로그인</Button>
                     <Button secondary onClick={()=>{navigate("/signup");}}>회원가입 하기</Button>
                 </ButtonGroup>
                 
@@ -71,7 +60,6 @@ export default function Login(props) {
         </Container>
     );
 }
-
 const Error = styled.p`
     color: red;
     margin-bottom: 15px;

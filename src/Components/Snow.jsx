@@ -34,12 +34,14 @@ const SnowflakeWrapper = styled.p`
 `;
 
 const SnowContainer = styled.div`
-  position: absolute;
+  position: fixed; /* 화면에 고정하여 스크롤에 영향받지 않음 */
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   pointer-events: none;
-  z-index: 9999999999;
+  z-index: 99999999999;
 `;
 
 const Snowflake = ({ style }) => {

@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { type } = require('@testing-library/user-event/dist/type');
 
 const app = express();
 app.use(cors({
@@ -32,6 +33,7 @@ const letterSchema = new mongoose.Schema({
 // 유저 스키마 정의에 편지 객체 추가
 const userSchema = new mongoose.Schema({
   UserId: { type: String, required: true },
+  email: {type: String},
   username: String,
   password: { type: String },
   kakaoAccount: Object,  // 카카오 유저 정보
@@ -156,7 +158,7 @@ app.get("/api/check-id", async (req, res) => {
 
 // 일반 회원가입 처리
 app.post("/api/signup", async (req, res) => {
-  const { id, username, password } = req.body;
+  const { id, username, password, email } = req.body;
 
   try {
     // 중복된 아이디가 있는지 확인
@@ -171,6 +173,7 @@ app.post("/api/signup", async (req, res) => {
     // 새로운 유저 생성
     const newUser = new User({
       UserId: id,
+      email: email,
       username: username,
       password: hashedPassword, // 해싱된 비밀번호 저장
       kakaoAccount: null, // 일반 회원가입이므로 kakaoAccount는 null

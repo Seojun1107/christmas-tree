@@ -10,24 +10,28 @@ import UserPage from "./Pages/UserPage";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Settings from "./Pages/Settings";
+import BackgroundMusic from "./Components/BackgroundMusic";
 
 
 function App(props) {
     const [user, setUser] = useState();
     const [isOpen, setIsOpen] = useState(false);  // 메뉴가 열려 있는지 상태로 관리
+    const [isPlaying, setIsPlaying] = useState(false);
+
     
     const toggleSettings = () => {
         setIsOpen(!isOpen); 
     };
     return (
         <BrowserRouter>
+            <BackgroundMusic/>
             <GlobalStyle user={user}/>
             {/* Snow 컴포넌트를 Routes 외부에 배치 */}
             <Snow />
             <FontAwesomeIcon onClick={toggleSettings} icon={faBars} size="xl" />
             <Settings isOpen={isOpen} setIsOpen={setIsOpen} setUser={setUser} currentUser={user}/>
             <Routes>
-                <Route path="/" element={<Main user={user} setUser={setUser} />} />
+                <Route path="/" element={<Main user={user} setUser={setUser} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
                 <Route path="/login" element={<Login setUser={setUser} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/auth" element={<KakaoRedirect setUser={setUser} />} />
