@@ -76,7 +76,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
   return (
     <>
-      {isMusicOn && <BackgroundMusic />} {/* 음악 상태에 따라 컴포넌트 렌더링 */}
+      <BackgroundMusic isPlaying={isMusicOn} /> {/* isPlaying prop 전달 */}
       <SettingsPanel isOpen={isOpen} ref={panelRef}>
         <CloseButton onClick={toggleSettings}>X</CloseButton>
         <Content>
@@ -101,6 +101,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
 // 스타일 컴포넌트 설정은 기존과 동일
 const SettingsPanel = styled.div`
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   position: fixed;
   height: 100%;
@@ -109,20 +110,19 @@ const SettingsPanel = styled.div`
   background-color: #323742;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   z-index: 99999999;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 
   // 데스크톱 - 오른쪽에서 왼쪽으로 슬라이드
   @media (min-width: 768px) {
     top: 0;
     right: 0;
     transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
-    transition: transform 0.3s ease-in-out;
   }
 
   // 모바일 - 아래에서 위로 슬라이드
   @media (max-width: 767px) {
     bottom: 0;
     transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(100%)')};
-    transition: transform 0.3s ease-in-out;
   }
 `;
 

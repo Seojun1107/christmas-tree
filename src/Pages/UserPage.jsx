@@ -75,6 +75,7 @@ export default function UserPage({ currentUser }) {
                       key={index}
                       letterData={letter.postValue}
                       nickName={letter.nickname}
+                      isOwner={isOwner}
                     />
                   ))
                   /* userData.letters.map((letter, index) => (
