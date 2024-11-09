@@ -23,12 +23,26 @@ export default function Signup(props) {
     };
 
     const handleSignup = async () => {
+        // 관리자를 표현하는 금지된 아이디와 닉네임 목록
+        const forbiddenWords = ["admin", "관리자", "administrator", "sysadmin", "root"];
+    
+        // 금지된 단어가 아이디 또는 닉네임에 포함되어 있는지 확인
+        if (forbiddenWords.some((word) => id.toLowerCase().includes(word))) {
+            alert("해당 아이디는 사용할 수 없습니다.");
+            return;
+        }
+    
+        if (forbiddenWords.some((word) => username.toLowerCase().includes(word))) {
+            alert("해당 닉네임은 사용할 수 없습니다.");
+            return;
+        }
+    
         // 비밀번호와 비밀번호 확인이 일치하지 않으면 회원가입을 중단
         if (password !== passwordConfirm) {
             setPasswordErrorMessage("비밀번호가 일치하지 않습니다.");
             return;
         }
-
+    
         try {
             const response = await axios.post("https://tree.seojun.xyz/api/signup", {
                 id,

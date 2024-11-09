@@ -45,3 +45,10 @@ code {
 input[type=password] {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.dday {
+  font-size: 20px;
+  color: black;
+  position: relative;
+  left: 10px;
+}

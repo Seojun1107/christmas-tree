@@ -7,6 +7,7 @@ import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Letter from './Letter';
 import WritePostView from './WritePost';
+import UserIcon from '../Components/UserIcon';
 
 export default function UserPage({ currentUser }) {
   const { userId } = useParams();
@@ -14,6 +15,7 @@ export default function UserPage({ currentUser }) {
   const [error, setError] = useState("");
   const [showCopyMessage, setShowCopyMessage] = useState(false);
   const [postVisible, setPostVisible] = useState(false);
+  const [daysUntilChristmas, setDaysUntilChristmas] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,6 +29,13 @@ export default function UserPage({ currentUser }) {
     };
 
     fetchUserData();
+
+    // Calculate days until Christmas
+    const today = new Date();
+    const christmas = new Date(today.getFullYear(), 11, 25); // December is 11 (0-indexed)
+    const differenceInTime = christmas.getTime() - today.getTime();
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    setDaysUntilChristmas(differenceInDays);
   }, [userId]);
 
   const isOwner = currentUser && currentUser.UserId === userId;
@@ -49,25 +58,38 @@ export default function UserPage({ currentUser }) {
       {userData ? (
         <Content>
           <BorderContent>
-            <Header style={isOwner ? { display: "flex" } : {display: "block"}}>
-              <Title>{userData.username}님의 페이지</Title>
+            <Header style={isOwner ? { display: "flex" } : { display: "block" }}>
+              <Title>
+                {userData.username}님의 페이지
+                {daysUntilChristmas !== null && daysUntilChristmas > 0 && isOwner && (
+                    <span className='dday'>D - {daysUntilChristmas}</span>
+                  )}
+              </Title>
               {isOwner && <FontAwesomeIcon icon={faShareFromSquare} size='2xl' onClick={handleShareClick} />}
             </Header>
             {isOwner ? (
               <Contents>
                 {userData.letters.length > 0 ? (
                   userData.letters.map((letter, index) => (
-                    <Letter
+                    <UserIcon
                       key={index}
                       letterData={letter.postValue}
                       nickName={letter.nickname}
                     />
                   ))
+                  /* userData.letters.map((letter, index) => (
+                    <Letter
+                      key={index}
+                      letterData={letter.postValue}
+                      nickName={letter.nickname}
+                    />
+                  )) */
                 ) : (
                   <>
                     <Message>편지를 못 받았어요..</Message>
                     <Message>페이지를 공유하고 싶으면 우측 상단에 있는 공유 아이콘을 클릭해주세요!</Message>
                   </>
+                  
                 )}
               </Contents>
             ) : (
@@ -79,7 +101,7 @@ export default function UserPage({ currentUser }) {
         <LoadingMessage>로딩 중...</LoadingMessage>
       )}
       {!isOwner && (
-        <WritePostButton onClick={togglePostModal} >편지 작성하기</WritePostButton>
+        <WritePostButton onClick={togglePostModal}>편지 작성하기</WritePostButton>
       )}
 
       {postVisible && (
@@ -87,7 +109,7 @@ export default function UserPage({ currentUser }) {
           <Overlay onClick={togglePostModal} />
           <PostModal>
             <CloseButton onClick={togglePostModal}>닫기</CloseButton>
-            <WritePostView currentUser={currentUser} receiveUser={userData.username}/>
+            <WritePostView currentUser={currentUser} receiveUser={userData.username} />
           </PostModal>
         </>
       )}
@@ -208,6 +230,7 @@ const Title = styled.h1`
 `;
 
 const Contents = styled.div`
+  height: 100%;
   overflow-y: scroll;
   scrollbar-width: none;
 
@@ -306,3 +329,5 @@ const CloseButton = styled.button`
     background: #ff0000;
   }
 `;
+
+
