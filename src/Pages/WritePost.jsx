@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function WritePost({ currentUser, recipient, receiveUser}) { // recipient prop 추가
   const [content, setContent] = useState('');
@@ -57,7 +58,12 @@ export default function WritePost({ currentUser, recipient, receiveUser}) { // r
             {successMessage && <SuccessMessage>전송 완료!</SuccessMessage>}
           </>
         ) : (
-          <Message>로그인이 필요합니다.</Message>
+          <>
+            <Message>로그인 후 작성하기</Message>
+            <Link to={`/login?redirect=${encodeURIComponent(window.location.pathname)}`}>
+              <GoToLogin>로그인 페이지 이동</GoToLogin>
+            </Link>
+          </>
         )}
       </Form>
     </Container>
@@ -83,7 +89,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 500px;
-  background-color: #E0F7FA; /* 밝은 하늘색 배경 */
+  border-radius: 15px;
+  border: 5px dashed #493628;
   background-image: url('/path/to/christmas-background.jpg'); /* 크리스마스 배경 이미지 */
   background-size: cover;
 `;
@@ -92,7 +99,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 */
-  border: 2px solid #FF6347; /* 토마토 색상 테두리 */
+  border: 2px solid #493628; /* 토마토 색상 테두리 */
   border-radius: 15px;
   padding: 20px;
   width: 400px;
@@ -103,9 +110,8 @@ const Form = styled.form`
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 15px;
-  color: #FF4500; /* 오렌지 레드 색상 */
+  color: #493628;
   text-align: center;
-  font-family: 'Dancing Script', cursive; /* 손글씨 느낌의 폰트 */
 `;
 
 const Nickname = styled.div`
@@ -127,7 +133,7 @@ const Textarea = styled.textarea`
 
 const Button = styled.button`
   padding: 10px;
-  background-color: #FF6347; /* 토마토 색상 */
+  background-color: #FF6347;
   color: white;
   font-size: 16px;
   border: none;
@@ -152,3 +158,12 @@ const SuccessMessage = styled.p`
   margin-top: 10px;
   animation: ${fadeIn} 1s ease;
 `;
+
+const GoToLogin = styled.div`
+  color: white;
+  background-color: rgb(73, 54, 40);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 5px;
+`

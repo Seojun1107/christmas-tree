@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function Login(props) {
     const navigate = useNavigate();
+    const location = useLocation();
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -18,7 +19,9 @@ export default function Login(props) {
     
             console.log("로그인 성공:", response.data);
             props.setUser(response.data.user);
-            navigate(`/${userId}`);
+
+            const redirectPath = new URLSearchParams(location.search).get('redirect');
+            navigate(redirectPath || `/${userId}`);
         } catch (err) {
             console.error("로그인 실패:", err);
             setError("로그인에 실패했습니다.");

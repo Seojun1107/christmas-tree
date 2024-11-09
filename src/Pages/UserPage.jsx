@@ -297,7 +297,7 @@ const PostModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background-color: #AB886D;
   padding: 30px;
   border-radius: 15px;
   z-index: 1001;
