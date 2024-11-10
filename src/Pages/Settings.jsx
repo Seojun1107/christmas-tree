@@ -8,6 +8,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
   const navigate = useNavigate();
   const panelRef = useRef(null);
   const [isMusicOn, setIsMusicOn] = useState(false); // 음악 상태 추가
+  const [isDarkMode, setIsDarkMode] = useState(false); // 다크 모드 상태 추가
 
   // 유저 정보 확인 및 자동 로그인 처리
   useEffect(() => {
@@ -55,6 +56,10 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
     navigate("/login");
   };
 
+  const handleDeveloperTreeVisit = () => {
+    navigate("/junisjmt");
+  };
+
   // 패널 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -84,8 +89,24 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
           <p>여기서 설정을 변경할 수 있습니다.</p>
 
           <Section>
-            <h3>배경음악</h3>
-            <Switch onChange={() => setIsMusicOn(!isMusicOn)} /> {/* 스위치 추가 */}
+            <Row>
+              <h3>배경음악</h3>
+              <Switch id="musicSwitch" onChange={() => setIsMusicOn(!isMusicOn)} /> {/* 고유 id 추가 */}
+            </Row>
+          </Section>
+
+          <Section>
+            <Row>
+              <h3>다크 모드</h3>
+              <Switch id="darkModeSwitch" onChange={() => setIsDarkMode(!isDarkMode)} /> {/* 고유 id 추가 */}
+            </Row>
+          </Section>
+
+          <Section>
+            <Row>
+            <h3>개발자 트리 방문하기</h3>
+            <Button style={{padding:"10px 50px"}} onClick={handleDeveloperTreeVisit}>방문하기</Button>
+            </Row>
           </Section>
 
           {currentUser ? (
@@ -102,7 +123,7 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 // 스타일 컴포넌트 설정은 기존과 동일
 const SettingsPanel = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: fixed;
   height: 100%;
   width: 100%;
@@ -160,6 +181,12 @@ const Section = styled.div`
   p {
     color: #ccc;
   }
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Button = styled.button`

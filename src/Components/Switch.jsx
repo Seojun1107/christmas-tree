@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Switch = ({ onChange }) => { // onChange prop 추가
+const Switch = ({ onChange, id }) => {
   return (
     <StyledWrapper>
       <div>
-        <input type="checkbox" id="checkboxInput" onChange={onChange} />
-        <label htmlFor="checkboxInput" className="toggleSwitch" />
+        <input type="checkbox" id={id} onChange={onChange} />
+        <label htmlFor={id} className="toggleSwitch" />
       </div>
     </StyledWrapper>
   );
@@ -14,7 +14,7 @@ const Switch = ({ onChange }) => { // onChange prop 추가
 
 const StyledWrapper = styled.div`
   /* To hide the checkbox */
-  #checkboxInput {
+  input[type="checkbox"] {
     display: none;
   }
 
@@ -44,15 +44,16 @@ const StyledWrapper = styled.div`
     border: 5px solid white;
   }
 
-  #checkboxInput:checked+.toggleSwitch::after {
+  input[type="checkbox"]:checked + .toggleSwitch::after {
     transform: translateX(100%);
     transition-duration: .2s;
     background-color: white;
   }
   /* Switch background change */
-  #checkboxInput:checked+.toggleSwitch {
+  input[type="checkbox"]:checked + .toggleSwitch {
     background-color: rgb(148, 118, 255);
     transition-duration: .2s;
-  }`;
+  }
+`;
 
 export default Switch;

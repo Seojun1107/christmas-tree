@@ -16,6 +16,7 @@ export default function UserPage({ currentUser }) {
   const [showCopyMessage, setShowCopyMessage] = useState(false);
   const [postVisible, setPostVisible] = useState(false);
   const [daysUntilChristmas, setDaysUntilChristmas] = useState(null);
+  const [selectedLetter, setSelectedLetter] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -50,6 +51,14 @@ export default function UserPage({ currentUser }) {
     setPostVisible(!postVisible);
   };
 
+  const handleIconClick = (letter) => {
+    setSelectedLetter(letter);
+  };
+
+  const handleBackClick = () => {
+    setSelectedLetter(null);
+  };
+
   if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
   return (
@@ -69,34 +78,44 @@ export default function UserPage({ currentUser }) {
             </Header>
             {isOwner ? (
               <Contents>
-                {userData.letters.length > 0 ? (
-                  userData.letters.map((letter, index) => (
-                    <UserIcon
-                      key={index}
-                      letterData={letter.postValue}
-                      nickName={letter.nickname}
-                      isOwner={isOwner}
-                    />
-                  ))
-                  /* userData.letters.map((letter, index) => (
-                    <Letter
-                      key={index}
-                      letterData={letter.postValue}
-                      nickName={letter.nickname}
-                    />
-                  )) */
+                {!selectedLetter && userData.letters.length > 0 ? (
+                  <UserIconGrid>
+                    {userData.letters.map((letter, index) => (
+                      <UserIcon
+                        key={index}
+                        letterData={letter}
+                        nickName={letter.nickname}
+                        isOwner={isOwner}
+                        onClick={() => handleIconClick(letter)}
+                        daysUntilChristmas={daysUntilChristmas}
+                      />
+                    ))}
+                  </UserIconGrid>
                 ) : (
                   <>
-                    <Message>편지를 못 받았어요..</Message>
-                    <Message>페이지를 공유하고 싶으면 우측 상단에 있는 공유 아이콘을 클릭해주세요!</Message>
+                    {userData.letters.length === 0 && (
+                      <>
+                        <Message>편지를 못 받았어요..</Message>
+                        <Message>페이지를 공유하고 싶으면 우측 상단에 있는 공유 아이콘을 클릭해주세요!</Message>
+                      </>
+                    )}
                   </>
-                  
+                )}
+                {selectedLetter && (
+                  <Letter
+                    letterData={selectedLetter.postValue}
+                    nickName={selectedLetter.nickname}
+                    onBack={handleBackClick}
+                  />
                 )}
               </Contents>
             ) : (
               <Message>이 페이지는 {userData.username}님의 트리입니다.</Message>
             )}
           </BorderContent>
+
+          
+
         </Content>
       ) : (
         <LoadingMessage>로딩 중...</LoadingMessage>
@@ -240,6 +259,20 @@ const Contents = styled.div`
   }
 `;
 
+const UserIconGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
 const Message = styled.p`
   font-size: 18px;
   color: #666;
@@ -330,5 +363,4 @@ const CloseButton = styled.button`
     background: #ff0000;
   }
 `;
-
 

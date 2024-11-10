@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const UserIcon = ({ nickName, isOwner }) => {
+const UserIcon = ({ nickName, isOwner, onClick, daysUntilChristmas }) => {
   const [showMessage, setShowMessage] = useState(false);
 
   const handleClick = () => {
-    if (isOwner) {
+    if (daysUntilChristmas > 0) {
       setShowMessage(true);
       setTimeout(() => setShowMessage(false), 2000);
+    } else {
+      onClick();
     }
   };
 
@@ -58,15 +60,11 @@ const CopyMessage = styled.div`
 const Icon = styled.div`
   width: 80px;
   height: 110px;
-  margin-top: 10px;
-  margin-left: 22px;
-  margin-right: 22px;
-  margin-bottom: 7px;
+  margin: 10px auto;
   border-radius: 20px;
   background-image: url("snowman.png");
   background-repeat: no-repeat;
-  background-cover: contain;
-  background-size: 150%;
+  background-size: contain;
   background-position: center center;
 `;
 

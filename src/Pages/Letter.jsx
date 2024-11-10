@@ -1,10 +1,15 @@
 // Letter.js
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const Letter = ({ letterData, nickName }) => {
+const Letter = ({ letterData, nickName, onBack }) => {
   return (
     <Wrap>
+      <BackIcon onClick={onBack}>
+        <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+      </BackIcon>
       <Text>{letterData}</Text>
       <From>From. {nickName}</From>
     </Wrap>
@@ -52,6 +57,15 @@ const From = styled.p`
   @media (max-width: 480px) {
     font-size: 18px;
   }
+`;
+
+const BackIcon = styled.div`
+  display: flex;
+  text-align: start;
+  position: relative;
+  top: 10px;
+  /* left: 10px; */
+  cursor: pointer;
 `;
 
 export default Letter;

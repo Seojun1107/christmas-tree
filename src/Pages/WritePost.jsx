@@ -3,10 +3,12 @@ import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export default function WritePost({ currentUser, recipient, receiveUser}) { // recipient prop 추가
+export default function WritePost({ currentUser, recipient, receiveUser }) {
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState('#FFF8DC'); // 기본 배경색 설정
+
   useEffect(() => {
     if (!currentUser) {
       setMessage("로그인이 필요합니다.");
@@ -25,7 +27,7 @@ export default function WritePost({ currentUser, recipient, receiveUser}) { // r
         nickname: currentUser.username,
         content,
         timestamp: new Date(),
-        recipient, // 수신자 정보 사용
+        recipient,
         receiveUser
       });
       if (response.status === 200) {
@@ -43,8 +45,15 @@ export default function WritePost({ currentUser, recipient, receiveUser}) { // r
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} style={{ backgroundColor }}>
         <Title>편지 쓰기</Title>
+        <ColorPalette>
+          <ColorOption color="#FFF8DC" onClick={() => setBackgroundColor('#FFF8DC')} />
+          <ColorOption color="#FFEB3B" onClick={() => setBackgroundColor('#FFEB3B')} />
+          <ColorOption color="#FFCDD2" onClick={() => setBackgroundColor('#FFCDD2')} />
+          <ColorOption color="#C8E6C9" onClick={() => setBackgroundColor('#C8E6C9')} />
+          <ColorOption color="#BBDEFB" onClick={() => setBackgroundColor('#BBDEFB')} />
+        </ColorPalette>
         {currentUser ? (
           <>
             <Nickname>닉네임: {currentUser.username}</Nickname>
@@ -69,9 +78,7 @@ export default function WritePost({ currentUser, recipient, receiveUser}) { // r
     </Container>
   );
 }
-// styled-components 및 기타 코드는 이전 코드와 동일하게 유지합니다.
 
-// 애니메이션 정의
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -83,7 +90,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// styled-components 스타일
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -91,20 +97,19 @@ const Container = styled.div`
   height: 500px;
   border-radius: 15px;
   border: 5px dashed #493628;
-  background-image: url('/path/to/christmas-background.jpg'); /* 크리스마스 배경 이미지 */
+  background-image: url('/path/to/christmas-background.jpg');
   background-size: cover;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 */
-  border: 2px solid #493628; /* 토마토 색상 테두리 */
+  border: 2px solid #493628;
   border-radius: 15px;
   padding: 20px;
   width: 400px;
   animation: ${fadeIn} 0.5s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 const Title = styled.h1`
@@ -116,7 +121,7 @@ const Title = styled.h1`
 
 const Nickname = styled.div`
   font-size: 18px;
-  color: #FF4500; /* 오렌지 레드 색상 */
+  color: #FF4500;
   margin-bottom: 10px;
 `;
 
@@ -128,7 +133,7 @@ const Textarea = styled.textarea`
   height: 150px;
   resize: none;
   margin-bottom: 15px;
-  background-color: #FFF8DC; /* 옅은 크림색 배경 */
+  background-color: #FFF8DC;
 `;
 
 const Button = styled.button`
@@ -142,7 +147,7 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #FF4500; /* 오렌지 레드 색상 */
+    background-color: #FF4500;
   }
 `;
 
@@ -166,4 +171,20 @@ const GoToLogin = styled.div`
   cursor: pointer;
   text-align: center;
   padding: 10px 5px;
-`
+`;
+
+const ColorPalette = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+`;
+
+const ColorOption = styled.div`
+  width: 30px;
+  height: 30px;
+  background-color: ${({ color }) => color};
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  border: 2px solid #493628;
+`;
