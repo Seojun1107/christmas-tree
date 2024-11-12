@@ -1,0 +1,65 @@
+2024-11-12T10:02:52.545Z - SYSTEM - 서버가 http://localhost:3001 에서 실행 중입니다.
+2024-11-12T10:02:52.561Z - SYSTEM - MongoDB 연결 성공
+2024-11-12T10:02:54.543Z - SYSTEM - 서버가 http://localhost:3001 에서 실행 중입니다.
+2024-11-12T10:02:54.561Z - SYSTEM - MongoDB 연결 성공
+2024-11-12T10:03:05.761Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:04:05.752Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:05:05.747Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:06:05.745Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:06:51.043Z - ::ffff:127.0.0.1 - 유저 조회 성공: {"_id":"6725d7212adf7c9103e180da","UserId":"psm2301","username":"준나맛도리","password":"$2b$10$gvRxGcqHs.LE32N0WEBLJOBxHCVKlWRY5.mYn5CiDVwc0S.sk6k0G","kakaoAccount":null,"letters":[{"sentAt":"2024-11-02T12:48:00.621Z","senderId":"psm2301","nickname":"서준","postValue":"asfd","ip":"::ffff:127.0.0.1","_id":"67261f806f18fb1719fcafa7"},{"sentAt":"2024-11-12T02:43:23.542Z","senderId":"psm2301","nickname":"서준","postValue":"asfd","ip":"::ffff:127.0.0.1","_id":"6732c0cb70f4d261b4159d9b"}],"__v":2}
+2024-11-12T10:06:51.051Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:07:33.433Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:07:51.750Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:08:51.025Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:09:04.344Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:09:12.208Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:09:12.215Z - ::ffff:127.0.0.1 - 유저 조회 성공: {"_id":"6725d4ba3b0de99db1a90ed2","UserId":"3737777496","username":"서준","kakaoAccount":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"서준","thumbnail_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","is_default_image":false,"is_default_nickname":false}},"letters":[{"sentAt":"2024-11-09T14:32:10.964Z","senderId":"3737777496","nickname":"관리자","postValue":"테스트입니다.","ip":"::ffff:127.0.0.1","_id":"672f726af07e135ed655c11c"}],"__v":1}
+2024-11-12T10:10:12.750Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:11:12.202Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:11:49.245Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:11:49.249Z - ::ffff:127.0.0.1 - 유저 조회 성공: {"_id":"6725d7212adf7c9103e180da","UserId":"psm2301","username":"준나맛도리","password":"$2b$10$gvRxGcqHs.LE32N0WEBLJOBxHCVKlWRY5.mYn5CiDVwc0S.sk6k0G","kakaoAccount":null,"letters":[{"sentAt":"2024-11-02T12:48:00.621Z","senderId":"psm2301","nickname":"서준","postValue":"asfd","ip":"::ffff:127.0.0.1","_id":"67261f806f18fb1719fcafa7"},{"sentAt":"2024-11-12T02:43:23.542Z","senderId":"psm2301","nickname":"서준","postValue":"asfd","ip":"::ffff:127.0.0.1","_id":"6732c0cb70f4d261b4159d9b"}],"__v":2}
+2024-11-12T10:12:49.750Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:13:49.225Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:14:49.749Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:15:49.753Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:16:43.680Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:16:49.751Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:17:50.750Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:18:51.751Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:26.758Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:28.025Z - ::ffff:127.0.0.1 - 유저 조회 성공: {"_id":"6725d4ba3b0de99db1a90ed2","UserId":"3737777496","username":"서준","kakaoAccount":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"서준","thumbnail_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","is_default_image":false,"is_default_nickname":false}},"letters":[{"sentAt":"2024-11-09T14:32:10.964Z","senderId":"3737777496","nickname":"관리자","postValue":"테스트입니다.","ip":"::ffff:127.0.0.1","_id":"672f726af07e135ed655c11c"}],"__v":1}
+2024-11-12T10:19:28.054Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:31.597Z - ::ffff:127.0.0.1 - 유저 조회 실패: User not found (privacy-policy)
+2024-11-12T10:19:31.684Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:33.919Z - ::ffff:127.0.0.1 - 유저 조회 실패: User not found (privacy-policy)
+2024-11-12T10:19:33.921Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:33.967Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:19:52.763Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:20:53.752Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:21:54.752Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:22:55.753Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:23:56.753Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:24:57.754Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:25:12.960Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:25:12.961Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:25:12.966Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:25:23.165Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:25:23.218Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:25:23.347Z - ::ffff:127.0.0.1 - 카카오 유저 정보: {"id":3737777496,"connected_at":"2024-10-08T01:35:18Z","properties":{"nickname":"서준","profile_image":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","thumbnail_image":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg"},"kakao_account":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"서준","thumbnail_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","is_default_image":false,"is_default_nickname":false}}}
+2024-11-12T10:25:23.350Z - ::ffff:127.0.0.1 - 기존 유저 로그인: {"_id":"6725d4ba3b0de99db1a90ed2","UserId":"3737777496","username":"서준","kakaoAccount":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"서준","thumbnail_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","is_default_image":false,"is_default_nickname":false}},"letters":[{"sentAt":"2024-11-09T14:32:10.964Z","senderId":"3737777496","nickname":"관리자","postValue":"테스트입니다.","ip":"::ffff:127.0.0.1","_id":"672f726af07e135ed655c11c"}],"__v":1}
+2024-11-12T10:25:23.391Z - ::ffff:127.0.0.1 - 유저 조회 성공: {"_id":"6725d4ba3b0de99db1a90ed2","UserId":"3737777496","username":"서준","kakaoAccount":{"profile_nickname_needs_agreement":false,"profile_image_needs_agreement":false,"profile":{"nickname":"서준","thumbnail_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_110x110.jpg","profile_image_url":"http://k.kakaocdn.net/dn/csH4Wj/btsJV0hi7mU/d1VYjujrPhVyLGQXiG3Bvk/img_640x640.jpg","is_default_image":false,"is_default_nickname":false}},"letters":[{"sentAt":"2024-11-09T14:32:10.964Z","senderId":"3737777496","nickname":"관리자","postValue":"테스트입니다.","ip":"::ffff:127.0.0.1","_id":"672f726af07e135ed655c11c"}],"__v":1}
+2024-11-12T10:25:58.755Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:26:51.907Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:26:51.928Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:26:52.102Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:26:56.654Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:26:56.660Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:26:56.974Z - ::ffff:127.0.0.1 - Unauthorized access attempt
+2024-11-12T10:26:59.753Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:27:59.758Z - ::ffff:127.0.0.1 - 통계 조회 성공: 사용자 수 - 5, 편지 수 - 19
+2024-11-12T10:35:23.942Z - SYSTEM - 서버가 http://localhost:3001 에서 실행 중입니다.
+2024-11-12T10:35:23.964Z - SYSTEM - MongoDB 연결 성공
+2024-11-12T10:35:37.224Z - SYSTEM - 서버가 http://localhost:3001 에서 실행 중입니다.
+2024-11-12T10:35:37.240Z - SYSTEM - MongoDB 연결 성공
+2024-11-12T10:35:38.992Z - SYSTEM - 서버가 http://localhost:3001 에서 실행 중입니다.
+2024-11-12T10:35:39.008Z - SYSTEM - MongoDB 연결 성공

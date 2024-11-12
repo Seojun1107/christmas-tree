@@ -49,6 +49,7 @@ export default function WritePost({ currentUser, recipient, receiveUser }) {
         <Title>편지 쓰기</Title>
         <ColorPalette>
           <ColorOption color="#FFF8DC" onClick={() => setBackgroundColor('#FFF8DC')} />
+          <ColorOption color="#FFF8DC" onClick={() => setBackgroundColor('#FFF8DC')} />
           <ColorOption color="#FFEB3B" onClick={() => setBackgroundColor('#FFEB3B')} />
           <ColorOption color="#FFCDD2" onClick={() => setBackgroundColor('#FFCDD2')} />
           <ColorOption color="#C8E6C9" onClick={() => setBackgroundColor('#C8E6C9')} />
@@ -97,8 +98,6 @@ const Container = styled.div`
   height: 500px;
   border-radius: 15px;
   border: 5px dashed #493628;
-  background-image: url('/path/to/christmas-background.jpg');
-  background-size: cover;
 `;
 
 const Form = styled.form`

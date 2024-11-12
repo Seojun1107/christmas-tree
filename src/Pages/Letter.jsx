@@ -23,6 +23,7 @@ const Wrap = styled.div`
   border-radius: 9px;
   margin-bottom: 35px;
   word-break: break-word;
+  user-select: none;
 
   @media (max-width: 768px) {
     padding: 5px 10px;
@@ -36,6 +37,7 @@ const Wrap = styled.div`
 const Text = styled.p`
   font-size: 22px;
   line-height: 1.5;
+  user-select: none;
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -49,6 +51,7 @@ const Text = styled.p`
 const From = styled.p`
   font-size: 25px;
   text-align: end;
+  user-select: none;
 
   @media (max-width: 768px) {
     font-size: 20px;

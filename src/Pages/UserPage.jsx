@@ -26,6 +26,9 @@ export default function UserPage({ currentUser }) {
         console.log("Fetched userId:", userId);
       } catch (err) {
         setError("유저 정보를 불러올 수 없습니다.");
+        if (err.response && err.response.status === 404) {
+          window.location.href = '/error';
+        }
       }
     };
 
@@ -181,6 +184,7 @@ const Container = styled.div`
   height: 100vh;
   background: url(${BackgroundImage});
   background-size: cover;
+  user-select: none;
   
   @media (max-width: 768px) {
     padding: 0 20px;
@@ -200,6 +204,7 @@ const Content = styled.div`
   backdrop-filter: blur(4px);
   box-shadow: 35px 35px 68px 0px rgba(0, 0, 0, 0.5), inset -9px -9px 16px 0px rgba(0, 0, 0, 0.3), inset 0px 11px 28px 0px rgba(255, 255, 255, 0.3);
   height: ${(isOwner) => (isOwner ? '750px' : '550px')};
+  user-select: none;
 
   @media (max-width: 768px) {
     width: 90%;

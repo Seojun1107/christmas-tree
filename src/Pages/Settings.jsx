@@ -60,6 +60,10 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
     navigate("/junisjmt");
   };
 
+  const handleBuyCoffee = () => {
+    window.location.href = "https://link.kakaopay.com/_/nJeQHBh";
+  };
+
   // 패널 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -97,23 +101,25 @@ export default function Settings({ isOpen, setIsOpen, currentUser, setUser }) {
 
           <Section>
             <Row>
-              <h3>다크 모드</h3>
-              <Switch id="darkModeSwitch" onChange={() => setIsDarkMode(!isDarkMode)} /> {/* 고유 id 추가 */}
-            </Row>
-          </Section>
-
-          <Section>
-            <Row>
             <h3>개발자 트리 방문하기</h3>
-            <Button style={{padding:"10px 50px"}} onClick={handleDeveloperTreeVisit}>방문하기</Button>
+            <Button style={{width:"50%",padding:"10px 50px"}} onClick={handleDeveloperTreeVisit}>방문하기</Button>
             </Row>
           </Section>
 
           {currentUser ? (
-            <Button onClick={handleLogout}>로그아웃</Button>
+              <Button onClick={handleLogout}>로그아웃</Button>
           ) : (
             <Button onClick={handleLoginRedirect}>로그인</Button>
           )}
+
+          <Section>
+            <Row>
+              <h3>개발자에게 커피사주기</h3>
+              <Button style={{width:"50%",padding:"10px 50px"}} onClick={handleBuyCoffee}>커피사주기</Button>
+            </Row>
+          </Section>
+
+          <PrivacyPolicyLink href="https://tree.seojun.xyz/privacy-policy" target="_blank">개인정보 처리방침</PrivacyPolicyLink>
         </Content>
       </SettingsPanel>
     </>
@@ -204,4 +210,12 @@ const Button = styled.button`
   &:hover {
     background-color: #ff4500;
   }
+`;
+
+const PrivacyPolicyLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #ccc;
+  text-align: center;
 `;
